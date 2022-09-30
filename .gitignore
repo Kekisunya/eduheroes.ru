@@ -1,15 +1,9 @@
-/venv/
-/get_countries_cities_names.ipynb
-/Tasks.txt
-/.idea/
-/.ipynb_checkpoints/
-/mysite/media/
-/mysite/db_fulfillment.py
-/mysite/gplaces.py
-/mysite/jobs_generator.py
-/mysite/news_generator.py
-/mysite/static/
-/mysite/mysite/settings.py
-/djangoenv
+/media/
+/db_fulfillment.py
+/gplaces.py
+/jobs_generator.py
+/news_generator.py
+/static/
+/mysite/settings.py
 passanger_wsgi.py
 
