@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.media }}
+        {{ form.as_p }}
+        {% if 'edit' in request.path %}
+        <button type="submit" class="btn btn-primary">Внести изменения</button>
+        {% else %}
+        <button type="submit" class="btn btn-primary">Добавить новость</button>
+        {% endif %}
+    </form>
+
+{% if 'edit' in request.path %}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Удалить
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Точно удалить?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form action="{% url 'news_delete' news.id %}" method="post">
+             {% csrf_token %}
+             <input type="hidden" name="news_id" value="news.id">
+             <button type="submit" class="btn btn btn-danger">Точно</button>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Не надо</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

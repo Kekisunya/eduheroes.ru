@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+
+{% for item in news %}
+<div class="card">
+    <div class="card-header">
+        Категории:
+        {% for category in item.categories.all %}
+            <span class="badge text-bg-secondary">{{category}}</span>
+        {% endfor %}
+        <p>
+            <small class="text-end">Просмотров: {{item.views }} </small>
+        </p>
+    </div>
+    <div class="card-body">
+        <a class="card-title h5" style="color:black; text-decoration: none;" href="{{ item.get_absolute_url }}">{{item.title}}</a>
+        <p><a class="card-text" style="color:black; text-decoration: none;" href="{{ item.get_absolute_url }}">{{ item.abstract }}</a></p>
+        {% if item.published %}
+        <small class="text-muted">Опубликована</small>
+        {% else %}
+            <small class="text-muted">Не опубликована</small>
+        {% endif %}
+        <p>
+            <a href="{{ item.get_absolute_edit_url }}" class="btn btn-primary">Редактировать</a>
+
+            <button type="button" class="btn btn-danger" id="liveToastBtn_{{item.id}}">Удалить</button>
+            <div class="toast-container" style="z-index: 2000;">
+              <div id="liveToast_{{item.id}}" class="toast z-index:99" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                  <strong class="me-auto">Точно удалить?</strong>
+                  <small>Потом уже не восстановишь</small>
+                  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <form action="{% url 'news_delete' item.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="news_id" value="item.id">
+                        <button type="submit", class="btn btn btn-danger">Точно</button>
+                    </form>
+                </div>
+              </div>
+            </div>
+
+        </p>
+    </div>
+</div>
+{% endfor %}
+
+{% for i in news %}
+    <script>
+    const toastTrigger_{{i.id}} = document.getElementById('liveToastBtn_{{i.id}}')
+    const toastLiveExample_{{i.id}} = document.getElementById('liveToast_{{i.id}}')
+        if (toastTrigger_{{i.id}}) {
+            toastTrigger_{{i.id}}.addEventListener('click', () => {
+            const toast_{{i.id}} = new bootstrap.Toast(toastLiveExample_{{i.id}})
+            toast_{{i.id}}.show()
+                        })
+            }
+    </script>
+{% endfor %}
+
+{% endblock %}

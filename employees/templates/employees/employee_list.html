@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block sidebar %}
+{% include 'inc/_sidebar_employees_search.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="col-md-9">
+    <div class="row">
+    {% for employee in employees %}
+        <div class="col-sm-4">
+            <div class="card mb-3">
+              <div class="card-header">
+                Теги:
+                  {% for job_type in employee.job_types.all %}
+                  <span class="badge text-bg-secondary">{{job_type}}</span>
+                  {% endfor %}
+                  {% for remote in employee.remote.all %}
+                  <span class="badge text-bg-secondary">{{remote}}</span>
+                  {% endfor %}
+              </div>
+
+              <div class="card-body">
+                  <img src="{{ employee.user.userpic.url }}" class="img-fluid rounded-circle mx-auto d-block" alt="Responsive image">
+                  <h2 class="card-text mx-auto">{{employee.get_username}}</h2>
+                  <p><strong>Роли:</strong>
+                      {% for role in employee.roles.all %}
+                      {{ role }}
+                      {% endfor %}
+                  </p>
+                  <p><strong>Тип обучения:</strong>
+                      {% for students in employee.students.all %}
+                      {{ students }}
+                      {% endfor %}
+                  </p>
+                  {% if employee.location %}
+                    <p><strong>Сейчас тут:</strong> {{employee.location}} </p>
+                  {% endif %}
+                  <p><strong>Контакты:</strong> {{employee.contacts}}
+                  <a href="{{ employee.get_absolute_url }}" class="btn btn-primary">Смотреть подробнее</a>
+              </div>
+              <div class="card-footer">
+                   Просмотров {{employee.total_views}}
+              </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

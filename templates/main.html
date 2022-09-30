@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+    <main>
+
+      <div class="col-md-8 mx-auto text-center">
+      <img src="{% static '/site_media/main/universe.png' %}" width="250" height="250" alt="EDU Heroes" class="d-block mx-auto mb-3">
+      <h1 class="mb-3 fw-semibold">EDU Heroes</h1>
+      <p class="lead mb-4">
+        Платформа, объединяющая героев образования. Найди своего специалиста или проект мечты.
+      </p>
+    </div>
+
+      <!-- Marketing messaging and featurettes
+      ================================================== -->
+      <!-- Wrap the rest of the page in another container to center all the content. -->
+
+      <div class="container marketing">
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+          <div class="col-lg-4">
+            <a href="{% url 'employees_search' %}"><img src="{% static '/site_media/main/heroes.png' %}" width="140" height="140" alt="heroes" class="d-block mb-3"></a>
+            <h2 class="fw-normal">Герои тут</h2>
+            <p>Размести анкету, или найди специалиста в команду</p>
+            <p><a class="btn btn-secondary" href="{% url 'employees_search' %}">Герои »</a></p>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <a href="{% url 'jobs_search' %}"> <img src="{% static '/site_media/main/projects.png' %}" width="140" height="140" alt="projects" class="d-block mb-3"></a>
+            <h2 class="fw-normal">Проекты тут</h2>
+            <p>Размести заявку, или найди команду</p>
+            <p><a class="btn btn-secondary" href="{% url 'jobs_search' %}">Проекты »</a></p>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <a href="{% url 'all_news' %}"> <img src="{% static '/site_media/main/news.png' %}" width="140" height="140" alt="news" class="d-block mb-3"></a>
+            <h2 class="fw-normal">Все статьи тут</h2>
+            <p>Пиши. Читай.</p>
+            <p><a class="btn btn-secondary" href="{% url 'all_news' %}">Читать »</a></p>
+          </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </main>
+
+
+{% endblock %}

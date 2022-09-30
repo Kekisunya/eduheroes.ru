@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="card mb-3">
+  <div class="card-body">
+      <div class="row">
+          <div class="col-md-6">
+            <h1 class="card-title text-center">{{ employee.get_username }}</h1>
+          </div>
+          <div class="col-md-6">
+            <h5 class="card-title text-center">{{ employee.location }}</h5>
+          </div>
+      </div>
+      <div class="row">
+
+          <div class="col-md-6 mt-3 mx-auto">
+            <img src="{{ employee.user.userpic.url }}" class="rounded-circle mx-auto d-block" width="
+250" height="250"  alt="Responsive image">
+          </div>
+          <div class="col-md-6 mt-3">
+              <p>
+                  <b>Моя специальность:</b>
+                  {% for role in employee.roles.all %}
+                    <span class="badge text-bg-secondary">{{ role }}</span>
+                  {% endfor %}
+              </p>
+              <p>
+                  <b>Я работаю с таким обучением:</b>
+                  {% for students in employee.students.all %}
+                    <span class="badge text-bg-secondary">{{ students }}</span>
+                  {% endfor %}
+              </p>
+              <p>
+                  <b>Мне интересны такие условия работы:</b>
+                  {% for remote in employee.remote.all %}
+                    <span class="badge text-bg-secondary">{{ remote }}</span>
+                  {% endfor %}
+              </p>
+              <p>
+                  <b>Меня интересуют такие типы занятости:</b>
+                  {% for job_type in employee.job_types.all %}
+                    <span class="badge text-bg-secondary">{{ job_type }}</span>
+                  {% endfor %}
+              </p>
+              <p><b>Мне удобны такие способы связи: </b>{{ employee.contacts }}</p>
+
+          </div>
+
+      </div>
+      <p class="card-text"><h5>Мое резюме:</h5></p>
+      {% autoescape off %}
+        <p> {{ employee.resume }} </p>
+      {% endautoescape %}
+      {% if employee.resume_file %}
+          <p class="card-text"><h5>Скачать резюме можно здесь:</h5></p>
+          <p> {{ employee.resume_file.url }} </p>
+      {% endif %}
+      <p class="card-text"><h5>Мои работы:</h5></p>
+      {% autoescape off %}
+        <p class="card-text">{{ employee.portfolio }}</p>
+      {% endautoescape %}
+
+  </div>
+  <div class="card-footer text-muted">
+
+      <div class="text-end">
+          <small> Обновлено: {{ employee.updated_at }}</small>
+      </div>
+
+  </div>
+</div>
+{% endblock %}

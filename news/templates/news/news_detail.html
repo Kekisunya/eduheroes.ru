@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="card mb-3">
+  <div class="card-header">
+    Категории: {% for category in item.categories.all %}
+      <span class="badge text-bg-secondary">{{category}}</span>
+      {% endfor %}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ item.title }}</h5>
+    {% autoescape off %}
+      <p class="card-text"> {{ item.content }} </p>
+    {% endautoescape %}
+  </div>
+  <div class="card-footer text-muted">
+      {% comment %}
+      Авторы: {% for author in item.authors.all %} {{author}} {% endfor %}
+      {% endcomment %}
+
+      <div class="text-end">
+        {{ item.created_at }}
+      </div>
+  </div>
+</div>
+{% endblock %}

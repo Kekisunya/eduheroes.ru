@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="card mb-3">
+  <div class="card-body">
+      <h5 class="card-title">{{ job.title }}</h5>
+      {% for interest in job.job_types.all %}
+              <span class="badge text-bg-secondary">{{interest}}</span>
+      {% endfor %}
+      {% for remote in job.remote.all %}
+              <span class="badge text-bg-secondary">{{remote}}</span>
+      {% endfor %}
+      {% autoescape off %}
+      <p class="card-text"><strong>Описание: </strong> {{ job.description }} </p>
+      {% endautoescape %}
+      <p class="card-text"><strong>Роль: </strong>{{job.role}}</p>
+      <p class="card-text"><strong>Тип обучения: </strong>{{job.students}}</p>
+      <p class="card-text"><strong>Местонахождение: </strong>{{job.location}}</p>
+      <p class="card-text"><strong>Контакты: </strong>{{job.contacts}}</p>
+
+  </div>
+  <div class="card-footer text-muted">
+
+      <div class="text-end">
+        {{ job.created_at }}
+      </div>
+  </div>
+</div>
+{% endblock %}

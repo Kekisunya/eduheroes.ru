@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+
+{% for job in jobs %}
+<div class="card mb-1">
+    <div class="card-header">
+        Категории:
+        {% for category in job.job_types.all %}
+            <span class="badge text-bg-secondary">{{category}}</span>
+        {% endfor %}
+        <p>
+            <small>Роль: {{job.role}} </small>
+        </p>
+    </div>
+    <div class="card-body">
+        <a class="card-title h5" style="color:black; text-decoration: none;" href="{{ job.get_absolute_url }}">{{job.title}}</a>
+        <p><a class="card-text" style="color:black; text-decoration: none;" href="{{ job.get_absolute_url }}">{{ job.description }}</a></p>
+        <p>
+            <small class="text-end">Просмотров: {{ job.total_views }} </small>
+        </p>
+        <p>
+            <a href="{{ job.get_absolute_edit_url }}" class="btn btn-primary">Редактировать</a>
+
+            <button type="button" class="btn btn-danger" id="liveToastBtn_{{job.id}}">Удалить</button>
+            <div class="toast-container" style="z-index: 2000;">
+              <div id="liveToast_{{job.id}}" class="toast z-index:" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                  <strong class="me-auto">Точно удалить?</strong>
+                  <small>Потом уже не восстановишь</small>
+                  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <form action="{% url 'job_delete' job.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="job_id" value="job.id">
+                        <button type="submit", class="btn btn btn-danger">Точно</button>
+                    </form>
+                </div>
+              </div>
+            </div>
+          </p>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+{% block scripts %}
+{% for job in jobs %}
+    <script>
+    const toastTrigger_{{job.id}} = document.getElementById('liveToastBtn_{{job.id}}')
+    const toastLiveExample_{{job.id}} = document.getElementById('liveToast_{{job.id}}')
+        if (toastTrigger_{{job.id}}) {
+            toastTrigger_{{job.id}}.addEventListener('click', () => {
+            const toast_{{job.id}} = new bootstrap.Toast(toastLiveExample_{{job.id}})
+            toast_{{job.id}}.show()
+                        })
+            }
+    </script>
+{% endfor %}
+
+{% endblock %}

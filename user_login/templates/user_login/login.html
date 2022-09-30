@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<span class="align-middle">
+    <div class="col-4 mx-auto">
+        <form action="" method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Войти</button>
+                <div class="text-center">
+                    <div class="hstack gap-3">
+                        <a href="{% url 'reset_pass' %}">Восстановить пароль</a>
+                        <a class="vr"></a>
+                        <a href="{% url 'signup' %}">Зарегистрироваться</a>
+                    </div>
+                </div>
+            </div>
+        <form>
+    </div>
+</span>
+
+<!--<script>-->
+<!--    const m = $("#modal-1")-->
+<!--    console.log("Modal:", m)-->
+<!--    $(m).click(()=>{-->
+<!--    console.log('click');-->
+<!--    $('#exampleModal').modal('show');-->
+<!--    })-->
+<!--</script>-->
+{% endblock %}

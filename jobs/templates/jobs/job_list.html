@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block sidebar %}
+{% include 'inc/_sidebar_jobs_search.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="col-md-9">
+    <div class="row">
+    {% for job in jobs %}
+        <div class="col-sm-4">
+            <div class="card mb-3">
+              <div class="card-header">
+                Интересы:
+                  {% for type in job.job_types.all %}
+                  <span class="badge text-bg-secondary">{{ type }}</span>
+                  {% endfor %}
+                  {% for remote in job.remote.all %}
+                  <span class="badge text-bg-secondary">{{ remote }}</span>
+                  {% endfor %}
+              </div>
+
+              <div class="card-body">
+                <h3 class="card-text">{{job.title}}</h3>
+                <p class="card-text"><strong>Роль:</strong>{{job.role}}</p>
+                <p class="card-text"><strong>Тип обучения:</strong>{{job.students}}</p>
+                <p class="card-text"><strong>Местонахождение:</strong>{{job.location}}</p>
+                <a href=" {{ job.get_absolute_url }} " class="btn btn-primary">Смотреть подробнее</a>
+              </div>
+                <div class="card-footer">
+                    Опубликовано  {{job.get_username}}
+                    Просмотров {{job.total_views}}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

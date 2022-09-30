@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block sidebar %}
+{% include 'inc/_sidebar_news_cats.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="col-md-8">
+{% for item in news %}
+
+<div class="card mb-3">
+  <div class="card-header">
+    Категории: {% for category in item.categories.all %}
+      <span class="badge text-bg-secondary">{{category}}</span>
+      {% endfor %}
+  </div>
+
+  {% if item.image %}
+    <img src="{{ item.image.url }}" class="card-img-top" alt="...">
+  {% endif %}
+
+  <div class="card-body">
+    <h5 class="card-title">{{ item.title }}</h5>
+    <p class="card-text"> {{ item.abstract }} </p>
+    <a href="{{item.get_absolute_url}}" class="btn btn-primary">Читать полностью</a>
+  </div>
+  <div class="card-footer text-muted">
+
+      Авторы: {% for author in item.authors.all %} {{author}} {% endfor %}
+
+      <div class="text-end">
+        <p>{{ item.created_at }}</p>
+        <p>Просмотров: {{ item.total_views }}</p>
+      </div>
+  </div>
+</div>
+
+{% endfor %}
+</div>
+
+
+{% endblock %}
