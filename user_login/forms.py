@@ -10,11 +10,17 @@ User = get_user_model()
 class UserCreateForm(UserCreationForm):
     email = forms.EmailField(
         label='Email',
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'autocomplete': 'on'
+        })
     )
     username = forms.CharField(
         label='Имя пользователя',
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'autocomplete': 'on'
+        })
     )
     password1 = forms.CharField(
         label='Пароль',
@@ -34,11 +40,17 @@ class UserCreateForm(UserCreationForm):
 class UserLoginForm(AuthenticationForm):
     username = forms.EmailField(
         label='Email',
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'autocomplete': 'on'
+        })
     )
     password = forms.CharField(
         label='Пароль',
-        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'autocomplete': 'on'
+        })
     )
     captcha = CaptchaField(widget=CaptchaTextInput)
 
@@ -111,6 +123,7 @@ class ChangePassForm(PasswordChangeForm):
             'name': 'old_password',
             'id': 'id_old_password',
             'placeholder': 'Введите текущий пароль',
+            'autocomplete': 'on',
         })
     )
     new_password1 = forms.CharField(
@@ -120,6 +133,7 @@ class ChangePassForm(PasswordChangeForm):
             'name': 'new_password1',
             'id': 'id_new_password1',
             'placeholder': 'Новый пароль',
+            'autocomplete': 'on',
         })
     )
     new_password2 = forms.CharField(
@@ -129,6 +143,7 @@ class ChangePassForm(PasswordChangeForm):
             'name': 'new_password2',
             'id': 'id_new_password2',
             'placeholder': 'Повторите новый пароль',
+            'autocomplete': 'on',
         })
     )
     class Meta:
