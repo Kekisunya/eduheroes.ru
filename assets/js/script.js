@@ -207,7 +207,7 @@ function enableImageOverlay(){
     var middleContainer = document.getElementById("id_middle_container")
     middleContainer.style.opacity = "0"
     middleContainer.style.position = "absolute"
-    middleContainer.style.top = "20%"
+    middleContainer.style.top = "50%"
     middleContainer.style.left = "50%"
     middleContainer.style.transform = "translate(-50%, -50%)"
 
