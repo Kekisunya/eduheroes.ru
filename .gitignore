@@ -6,3 +6,4 @@
 /static/
 /mysite/settings.py
 passanger_wsgi.py
+__pycache__/
