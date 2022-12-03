@@ -159,6 +159,7 @@ def crop_image(request, *args, **kwargs):
             bts = bytearray(stream.read())
             np_array = numpy.asarray(bts, dtype=numpy.uint8)
             img = cv2.imdecode(np_array, cv2.IMREAD_UNCHANGED)
+            stream.close()
 
             crop_x = int(float(str(request.POST.get('cropX'))))
             crop_y = int(float(str(request.POST.get('cropY'))))
@@ -175,7 +176,9 @@ def crop_image(request, *args, **kwargs):
             im_buf_arr.tofile(url)
 
             user.userpic.delete()
-            user.userpic.save('profile_image.png', files.File(open(url, 'rb')))
+            f = files.File(open(url, 'rb'))
+            user.userpic.save('profile_image.png', f)
+            f.close()
             user.save()
 
             payload['result'] = 'success'
