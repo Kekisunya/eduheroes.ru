@@ -175,9 +175,16 @@ def crop_image(request, *args, **kwargs):
             is_success, im_buf_arr = cv2.imencode('.png', crop_img)
             im_buf_arr.tofile(url)
 
+            if user.userpic.url[-5].isdigit():
+                n_loc = -5
+                while user.userpic.url[n_loc - 1].isdigit():
+                    n_loc -= 1
+                n = int(user.userpic.url[n_loc:-4])
+            else:
+                n = -1
             user.userpic.delete()
             f = files.File(open(url, 'rb'))
-            user.userpic.save('profile_image.png', f)
+            user.userpic.save('profile_image_'+str(n+1)+'.png', f)
             f.close()
             user.save()
 
